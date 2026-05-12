@@ -1026,7 +1026,7 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
   // ── MARMARAY DATA & RENDER ──────────────────────────────────────
   const MARMARAY = {
     halkaliYonu: [
-      ['GEBZE','06:05','03:20','01:20'],
+      ['GEBZE','06:05','23:20','01:20'],
       ['DARICA','06:07','23:22','01:22'],
       ['OSMANGAZİ','06:09','23:24','01:24'],
       ['FATİH','06:11','23:26','01:26'],
@@ -1284,8 +1284,14 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
       return;
     }
 
-    const hY = MARMARAY.halkaliYonu; // Gebze→Halkalı sırasında
-    const gY = MARMARAY.gebzeYonu;   // Halkalı→Gebze sırasında
+    // Cuma (5) veya Cumartesi (6) → hafta sonu saati (index 3), diğer günler hafta içi (index 2)
+    const day = new Date().getDay(); // 0=Pazar,1=Pzt,...,5=Cuma,6=Ctesi
+    const isWeekend = day === 5 || day === 6;
+    const sonIdx = isWeekend ? 3 : 2;
+    const gunLabel = isWeekend ? '🌙 Hafta Sonu' : '📅 Hafta İçi';
+
+    const hY = MARMARAY.halkaliYonu;
+    const gY = MARMARAY.gebzeYonu;
 
     function findIdx(arr, name) {
       return arr.findIndex(r => r[0].toUpperCase() === name);
@@ -1293,33 +1299,29 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
 
     let rows = [];
 
-    // halkaliYonu: dizi Gebze→Halkalı sırasında
-    // fromIdx < toIdx → kalkış Gebze tarafında, varış Halkalı tarafında (= Halkalı yönüne giden tren doğru)
     const fromIdxH = findIdx(hY, fromVal);
     const toIdxH   = findIdx(hY, toVal);
     if (fromIdxH !== -1 && toIdxH !== -1 && fromIdxH < toIdxH) {
       const fr = hY[fromIdxH], to = hY[toIdxH];
       const sureIlk = diffMin(toMin(fr[1]), toMin(to[1]));
-      const sureSon  = diffMin(toMin(fr[2]), toMin(to[2]));
+      const sureSon  = diffMin(toMin(fr[sonIdx]), toMin(to[sonIdx]));
       rows.push({
         hat: 'Halkalı–Gebze Hattı → Halkalı Yönüne',
         ilkKalkis: fr[1], ilkVaris: to[1], ilkSure: sureIlk,
-        sonKalkis: fr[2], sonVaris: to[2], sonSure: sureSon,
+        sonKalkis: fr[sonIdx], sonVaris: to[sonIdx], sonSure: sureSon,
       });
     }
 
-    // gebzeYonu: dizi Halkalı→Gebze sırasında
-    // fromIdx < toIdx → kalkış Halkalı tarafında, varış Gebze tarafında
     const fromIdxG = findIdx(gY, fromVal);
     const toIdxG   = findIdx(gY, toVal);
     if (fromIdxG !== -1 && toIdxG !== -1 && fromIdxG < toIdxG) {
       const fr = gY[fromIdxG], to = gY[toIdxG];
       const sureIlk = diffMin(toMin(fr[1]), toMin(to[1]));
-      const sureSon  = diffMin(toMin(fr[2]), toMin(to[2]));
+      const sureSon  = diffMin(toMin(fr[sonIdx]), toMin(to[sonIdx]));
       rows.push({
         hat: 'Halkalı–Gebze Hattı → Gebze Yönüne',
         ilkKalkis: fr[1], ilkVaris: to[1], ilkSure: sureIlk,
-        sonKalkis: fr[2], sonVaris: to[2], sonSure: sureSon,
+        sonKalkis: fr[sonIdx], sonVaris: to[sonIdx], sonSure: sureSon,
       });
     }
 
@@ -1332,7 +1334,7 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
       return;
     }
 
-    let html = '';
+    let html = `<div style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:600;letter-spacing:1px;">${gunLabel} saatleri gösteriliyor</div>`;
     rows.forEach(r => {
       html += `
         <div style="background:var(--surface-2);border-radius:8px;padding:14px;margin-bottom:10px;">
@@ -1947,6 +1949,21 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
         <div class="kv-item"><span>İlk Tren</span><div>${info.first}</div></div>
         <div class="kv-item"><span>Son Tren</span><div>${info.last}</div></div>
         ${intervalRows}
+        <div style="grid-column:1/-1;margin-top:12px;">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Tüm Seferler</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            ${rawTimes.map((t, i) => {
+              const mins = allSorted[i];
+              const isPast = mins !== null && mins < nowMins && !(mins >= nowMinsAlt);
+              const isNext = i === nextIdx;
+              return `<span style="padding:5px 10px;border-radius:8px;font-size:13px;font-weight:${isNext ? '700' : '500'};
+                background:${isNext ? 'var(--accent)' : isPast ? 'rgba(255,255,255,0.04)' : 'rgba(0,229,199,0.08)'};
+                color:${isNext ? '#020e0c' : isPast ? 'var(--muted)' : 'var(--ink)'};
+                border:1px solid ${isNext ? 'var(--accent)' : isPast ? 'rgba(255,255,255,0.06)' : 'rgba(0,229,199,0.2)'};
+                text-decoration:${isPast ? 'line-through' : 'none'};opacity:${isPast ? '0.45' : '1'};">${t}</span>`;
+            }).join('')}
+          </div>
+        </div>
       `;
     };
     kayasSincanStation.addEventListener('change', render);
@@ -2134,6 +2151,21 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
         <div class="kv-item"><span>İlk Tren</span><div>${info.first}</div></div>
         <div class="kv-item"><span>Son Tren</span><div>${info.last}</div></div>
         ${intervalRowsSK}
+        <div style="grid-column:1/-1;margin-top:12px;">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Tüm Seferler</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            ${rawTimes.map((t, i) => {
+              const mins = allSortedSK[i];
+              const isPast = mins !== null && mins < nowMins && !(mins >= nowMinsAlt);
+              const isNext = i === nextIdx;
+              return `<span style="padding:5px 10px;border-radius:8px;font-size:13px;font-weight:${isNext ? '700' : '500'};
+                background:${isNext ? 'var(--accent)' : isPast ? 'rgba(255,255,255,0.04)' : 'rgba(0,229,199,0.08)'};
+                color:${isNext ? '#020e0c' : isPast ? 'var(--muted)' : 'var(--ink)'};
+                border:1px solid ${isNext ? 'var(--accent)' : isPast ? 'rgba(255,255,255,0.06)' : 'rgba(0,229,199,0.2)'};
+                text-decoration:${isPast ? 'line-through' : 'none'};opacity:${isPast ? '0.45' : '1'};">${t}</span>`;
+            }).join('')}
+          </div>
+        </div>
       `;
     };
     sincanKayasStation.addEventListener('change', render);
