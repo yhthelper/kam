@@ -475,6 +475,20 @@ select:focus, input[type="search"]:focus {
   background: rgba(0, 229, 199, 0.07);
 }
 
+@media (max-width: 480px) {
+  .table th, .table td {
+    padding: 7px 8px;
+    font-size: 12px;
+  }
+  .table th {
+    font-size: 10px;
+  }
+  .table-wrap.scroll-x {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+}
+
 .table tbody tr:nth-child(odd) td {
   background: rgba(255, 255, 255, 0.02);
 }
@@ -874,7 +888,7 @@ select option {
         <div class="card" style="margin-bottom:16px;">
           <div class="table-wrap center-table">
             <h3 class="center-title" style="margin-bottom:12px;">HALKALI – GEBZE – HALKALI TRENLERİ</h3>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;flex-wrap:wrap;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
               <div>
                 <h4 class="center-title" style="color:var(--accent);margin-bottom:8px;">HALKALI YÖNÜNE</h4>
                 <div class="table-wrap scroll-x">
@@ -890,10 +904,10 @@ select option {
             </div>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
           <div class="card">
             <h3 class="center-title" style="margin-bottom:12px;">ATAKÖY–PENDİK–ATAKÖY TRENLERİ</h3>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
               <div>
                 <h4 class="center-title" style="color:var(--accent);margin-bottom:8px;">ATAKÖY YÖNÜNE</h4>
                 <div class="table-wrap scroll-x">
