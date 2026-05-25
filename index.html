@@ -258,7 +258,7 @@ label {
   color: var(--muted);
 }
 
-select, input[type="search"] {
+select, input[type="search"], input[type="date"] {
   padding: 10px 12px;
   border-radius: 12px;
   border: 1px solid var(--stroke);
@@ -266,11 +266,85 @@ select, input[type="search"] {
   font-size: 14px;
   outline: none;
   color: var(--ink);
+  color-scheme: dark;
 }
 
-select:focus, input[type="search"]:focus {
+select:focus, input[type="search"]:focus, input[type="date"]:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(0, 229, 199, 0.18);
+}
+
+.age-date-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.date-field {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 16px;
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(0, 229, 199, 0.08), rgba(108, 143, 255, 0.05)),
+    rgba(10, 16, 24, 0.86);
+  border: 1px solid rgba(0, 229, 199, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+.date-field-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: #04110f;
+  font-size: 18px;
+  background: linear-gradient(135deg, var(--accent), #8ff7e8);
+  box-shadow: 0 10px 24px rgba(0, 229, 199, 0.2);
+}
+
+.date-field label {
+  gap: 8px;
+}
+
+.date-field-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.date-input-wrap {
+  display: grid;
+  gap: 10px;
+}
+
+.date-select-grid {
+  display: grid;
+  grid-template-columns: minmax(76px, 0.75fr) minmax(116px, 1.2fr) minmax(92px, 0.9fr);
+  gap: 8px;
+}
+
+.date-select-grid select {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 10px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  background: rgba(5, 11, 17, 0.72);
+  border-color: rgba(255, 255, 255, 0.11);
+}
+
+.date-select-grid select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 229, 199, 0.16);
 }
 
 .grid {
@@ -350,6 +424,49 @@ select:focus, input[type="search"]:focus {
 
 .kv-item small {
   white-space: nowrap;
+}
+
+.age-status {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+}
+
+.age-status span {
+  color: rgba(4, 17, 15, 0.66);
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+
+.age-status div {
+  font-size: 24px;
+  line-height: 1.15;
+  font-weight: 900;
+}
+
+.age-status-ok {
+  color: #04110f;
+  background: linear-gradient(135deg, #67f0d9, #c9fff3);
+  border-color: rgba(103, 240, 217, 0.72);
+}
+
+.age-status-warn {
+  color: #200609;
+  background: linear-gradient(135deg, #ff8fa3, #ffd6de);
+  border-color: rgba(255, 143, 163, 0.74);
+}
+
+.age-status-neutral {
+  color: var(--ink);
+  background: linear-gradient(135deg, rgba(108, 143, 255, 0.22), rgba(0, 229, 199, 0.1));
+  border-color: rgba(108, 143, 255, 0.35);
+}
+
+.age-status-neutral span {
+  color: var(--muted);
 }
 
 .table-wrap {
@@ -620,6 +737,11 @@ select option {
             <span class="home-card-title">Abonman Ücretleri</span>
             <span class="home-card-sub">YHT gün ve biniş bazlı fiyatlar</span>
           </button>
+          <button class="home-card" data-tab="yas-hesaplama">
+            <span class="home-card-icon">📅</span>
+            <span class="home-card-title">Yaş Hesaplama</span>
+            <span class="home-card-sub">72 ay bilet kontrolü</span>
+          </button>
           <button class="home-card" data-tab="baskentray">
             <span class="home-card-icon">🚆</span>
             <span class="home-card-title">BAŞKENTRAY</span>
@@ -717,6 +839,51 @@ select option {
             <div class="table-wrap" id="abonman-table-wrap"></div>
           </section>
         </div>
+      </section>
+
+      <section id="tab-yas-hesaplama" class="tab-panel" role="tabpanel">
+        <div class="panel-header">
+          <div>
+            <h2>YAŞ HESAPLAMA</h2>
+            <p>72 aydan küçük yolcular için bilet gerekliliğini kontrol edin.</p>
+          </div>
+        </div>
+
+        <div class="age-date-grid">
+          <div class="date-field">
+            <div class="date-field-icon">🎂</div>
+            <label>
+              <span class="date-field-label">Doğum Tarihi</span>
+              <div class="date-input-wrap">
+                <div class="date-select-grid" data-date-group="birth">
+                  <select id="yas-birth-day" aria-label="Doğum günü"></select>
+                  <select id="yas-birth-month" aria-label="Doğum ayı"></select>
+                  <select id="yas-birth-year" aria-label="Doğum yılı"></select>
+                </div>
+                <input id="yas-birth" type="hidden" />
+              </div>
+            </label>
+          </div>
+          <div class="date-field">
+            <div class="date-field-icon">🚆</div>
+            <label>
+              <span class="date-field-label">Seyahat Tarihi</span>
+              <div class="date-input-wrap">
+                <div class="date-select-grid" data-date-group="travel">
+                  <select id="yas-travel-day" aria-label="Seyahat günü"></select>
+                  <select id="yas-travel-month" aria-label="Seyahat ayı"></select>
+                  <select id="yas-travel-year" aria-label="Seyahat yılı"></select>
+                </div>
+                <input id="yas-travel" type="hidden" />
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <section class="card">
+          <h3>Sonuç</h3>
+          <div class="kv" id="yas-result"></div>
+        </section>
       </section>
 
       <section id="tab-baskentray" class="tab-panel" role="tabpanel">
@@ -1354,6 +1521,15 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
   const abonmanStats = document.getElementById('abonman-stats');
   const abonmanKv = document.getElementById('abonman-kv');
   const abonmanNote = document.getElementById('abonman-note');
+  const yasBirthInput = document.getElementById('yas-birth');
+  const yasTravelInput = document.getElementById('yas-travel');
+  const yasResult = document.getElementById('yas-result');
+  const yasBirthDay = document.getElementById('yas-birth-day');
+  const yasBirthMonth = document.getElementById('yas-birth-month');
+  const yasBirthYear = document.getElementById('yas-birth-year');
+  const yasTravelDay = document.getElementById('yas-travel-day');
+  const yasTravelMonth = document.getElementById('yas-travel-month');
+  const yasTravelYear = document.getElementById('yas-travel-year');
   const kayasSincanWrap = document.getElementById('kayas-sincan-table-wrap');
   const sincanKayasWrap = document.getElementById('sincan-kayas-table-wrap');
   const kayasSincanStation = document.getElementById('kayas-sincan-station');
@@ -1731,10 +1907,197 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
 
   initGar();
   initAbonman();
+  initYasHesaplama();
   initBaskentray();
   initM11();
   initSirkeciKazlicesme();
   // skYonDegisti tab acilinca cagrilir
+
+  function parseDateInput(value) {
+    if (!value) return null;
+    const parts = value.split('-').map(Number);
+    if (parts.length !== 3 || parts.some((part) => !Number.isFinite(part))) return null;
+    const [year, month, day] = parts;
+    return new Date(year, month - 1, day);
+  }
+
+  function stripTime(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
+  function addMonths(date, monthCount) {
+    const result = new Date(date.getFullYear(), date.getMonth() + monthCount, date.getDate());
+    if (result.getDate() !== date.getDate()) result.setDate(0);
+    return stripTime(result);
+  }
+
+  function diffDays(startDate, endDate) {
+    const oneDay = 24 * 60 * 60 * 1000;
+    return Math.round((stripTime(endDate) - stripTime(startDate)) / oneDay);
+  }
+
+  function formatDateTR(date) {
+    return date.toLocaleDateString('tr-TR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  }
+
+  function getAgeParts(birthDate, travelDate) {
+    let years = travelDate.getFullYear() - birthDate.getFullYear();
+    let months = travelDate.getMonth() - birthDate.getMonth();
+    let days = travelDate.getDate() - birthDate.getDate();
+
+    if (days < 0) {
+      months -= 1;
+      days += new Date(travelDate.getFullYear(), travelDate.getMonth(), 0).getDate();
+    }
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
+
+    return { years, months, days };
+  }
+
+  function getTotalAgeMonths(birthDate, travelDate) {
+    const age = getAgeParts(birthDate, travelDate);
+    return (age.years * 12) + age.months;
+  }
+
+  function renderYasMessage(label, value, className = '') {
+    return `
+      <div class="kv-item ${className}">
+        <span>${label}</span>
+        <div>${value}</div>
+      </div>`;
+  }
+
+  function renderYasHesaplama() {
+    if (!yasResult) return;
+    const birthDate = parseDateInput(yasBirthInput.value);
+    const travelDate = parseDateInput(yasTravelInput.value);
+
+    if (!birthDate || !travelDate) {
+      yasResult.innerHTML = renderYasMessage('Durum', 'Lütfen doğum ve seyahat tarihini girin.', 'age-status age-status-neutral');
+      return;
+    }
+
+    if (birthDate > travelDate) {
+      yasResult.innerHTML = renderYasMessage('Durum', 'Doğum tarihi seyahat tarihinden sonra olamaz.', 'age-status age-status-warn');
+      return;
+    }
+
+    const thresholdDate = addMonths(birthDate, 72);
+    const under72Months = travelDate < thresholdDate;
+    const age = getAgeParts(birthDate, travelDate);
+    const totalMonths = getTotalAgeMonths(birthDate, travelDate);
+    const distance = Math.abs(diffDays(travelDate, thresholdDate));
+    const distanceText = under72Months
+      ? `72 ayını doldurmasına ${distance} gün var.`
+      : `72 ayını dolduralı ${distance} gün oldu.`;
+    const explanation = under72Months
+      ? 'Seyahat tarihinde 72 aydan küçük olduğu için bilet kesilmez.'
+      : 'Seyahat tarihinde 72 ayını doldurduğu için bilet gerekir.';
+
+    yasResult.innerHTML = [
+      renderYasMessage(
+        'Durum',
+        under72Months ? 'Bilet zorunlu değil' : 'Bilet gerekli',
+        under72Months ? 'age-status age-status-ok' : 'age-status age-status-warn'
+      ),
+      renderYasMessage('Yaş', `${age.years} yıl ${age.months} ay ${age.days} gün`),
+      renderYasMessage('Ay Olarak Yaş', `${totalMonths} ay ${age.days} gün`),
+      renderYasMessage('72 Ay Dolum Tarihi', formatDateTR(thresholdDate)),
+      renderYasMessage('Kalan / Geçen Süre', distanceText),
+      renderYasMessage('Açıklama', explanation),
+    ].join('');
+  }
+
+  function padDatePart(value) {
+    return String(value).padStart(2, '0');
+  }
+
+  function getDaysInMonth(year, month) {
+    if (!year || !month) return 31;
+    return new Date(Number(year), Number(month), 0).getDate();
+  }
+
+  function fillSelect(select, options, placeholder) {
+    if (!select) return;
+    const currentValue = select.value;
+    select.innerHTML = `<option value="">${placeholder}</option>` + options
+      .map((option) => `<option value="${option.value}">${option.label}</option>`)
+      .join('');
+    if (options.some((option) => option.value === currentValue)) {
+      select.value = currentValue;
+    }
+  }
+
+  function updateDayOptions(daySelect, monthSelect, yearSelect) {
+    const dayCount = getDaysInMonth(yearSelect.value, monthSelect.value);
+    const days = Array.from({ length: dayCount }, (_, index) => {
+      const day = index + 1;
+      return { value: padDatePart(day), label: String(day) };
+    });
+    fillSelect(daySelect, days, 'Gün');
+  }
+
+  function syncDateValue({ daySelect, monthSelect, yearSelect, input }) {
+    if (!daySelect || !monthSelect || !yearSelect || !input) return;
+    updateDayOptions(daySelect, monthSelect, yearSelect);
+    if (!daySelect.value || !monthSelect.value || !yearSelect.value) {
+      input.value = '';
+    } else {
+      input.value = `${yearSelect.value}-${monthSelect.value}-${daySelect.value}`;
+    }
+    renderYasHesaplama();
+  }
+
+  function initDateSelector({ daySelect, monthSelect, yearSelect, input, minYear, maxYear }) {
+    if (!daySelect || !monthSelect || !yearSelect || !input) return;
+    const months = [
+      'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
+      'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık',
+    ].map((label, index) => ({ value: padDatePart(index + 1), label }));
+    const years = [];
+    for (let year = maxYear; year >= minYear; year -= 1) {
+      years.push({ value: String(year), label: String(year) });
+    }
+
+    fillSelect(monthSelect, months, 'Ay');
+    fillSelect(yearSelect, years, 'Yıl');
+    updateDayOptions(daySelect, monthSelect, yearSelect);
+
+    [daySelect, monthSelect, yearSelect].forEach((select) => {
+      select.addEventListener('change', () => {
+        syncDateValue({ daySelect, monthSelect, yearSelect, input });
+      });
+    });
+  }
+
+  function initYasHesaplama() {
+    if (!yasBirthInput || !yasTravelInput || !yasResult) return;
+    const currentYear = new Date().getFullYear();
+    initDateSelector({
+      daySelect: yasBirthDay,
+      monthSelect: yasBirthMonth,
+      yearSelect: yasBirthYear,
+      input: yasBirthInput,
+      minYear: 1900,
+      maxYear: currentYear,
+    });
+    initDateSelector({
+      daySelect: yasTravelDay,
+      monthSelect: yasTravelMonth,
+      yearSelect: yasTravelYear,
+      input: yasTravelInput,
+      minYear: currentYear - 2,
+      maxYear: currentYear + 5,
+    });
+    renderYasHesaplama();
+  }
 
   function initBaskentray() {
     if (!baskentrayStation || !data.kayasSincan || !data.sincanKayas) return;
