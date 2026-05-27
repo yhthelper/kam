@@ -469,6 +469,84 @@ select:focus, input[type="search"]:focus, input[type="date"]:focus {
   color: var(--muted);
 }
 
+.pet-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 24px 0 16px;
+}
+
+.pet-summary-item {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(0, 229, 199, 0.12), rgba(108, 143, 255, 0.08));
+  border: 1px solid rgba(0, 229, 199, 0.18);
+}
+
+.pet-summary-item span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.pet-summary-item strong {
+  display: block;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.rule-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.rule-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(5, 11, 17, 0.56);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rule-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: #04110f;
+  background: linear-gradient(135deg, var(--accent), #bdfcf1);
+  font-size: 20px;
+}
+
+.rule-row h4 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.rule-row p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.source-note {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.source-note a {
+  color: var(--accent);
+}
+
 .table-wrap {
   overflow: visible;
   max-height: none;
@@ -742,6 +820,11 @@ select option {
             <span class="home-card-title">Yaş Hesaplama</span>
             <span class="home-card-sub">72 ay bilet kontrolü</span>
           </button>
+          <button class="home-card" data-tab="evcil-hayvan">
+            <span class="home-card-icon">🐾</span>
+            <span class="home-card-title">Evcil Hayvan Taşıma Kuralları</span>
+            <span class="home-card-sub">Kafes, belge, vagon ve bilet şartları</span>
+          </button>
           <button class="home-card" data-tab="baskentray">
             <span class="home-card-icon">🚆</span>
             <span class="home-card-title">BAŞKENTRAY</span>
@@ -756,6 +839,11 @@ select option {
             <span class="home-card-icon">✈️</span>
             <span class="home-card-title">M11 METRO</span>
             <span class="home-card-sub">Gayrettepe ve Havalimanı yönleri</span>
+          </button>
+          <button class="home-card" data-tab="m11-kargo">
+            <span class="home-card-icon">🛫</span>
+            <span class="home-card-title">M11 KARGO - ARNAVUTKÖY</span>
+            <span class="home-card-sub">Fotoğraftaki güncel ilk/son trenler</span>
           </button>
           <button class="home-card" data-tab="marmaray">
             <span class="home-card-icon">🌊</span>
@@ -886,6 +974,117 @@ select option {
         </section>
       </section>
 
+      <section id="tab-evcil-hayvan" class="tab-panel" role="tabpanel">
+        <div class="panel-header">
+          <div>
+            <h2>EVCİL HAYVAN TAŞIMA KURALLARI</h2>
+            <p>TCDD Taşımacılık evcil hayvan taşıma şartlarını personel için kısa kontrol listesi olarak görün.</p>
+          </div>
+        </div>
+
+        <div class="pet-summary">
+          <div class="pet-summary-item">
+            <span>Taşınabilenler</span>
+            <strong>Kedi, köpek, ötücü kuş</strong>
+          </div>
+          <div class="pet-summary-item">
+            <span>Bilet</span>
+            <strong>Yan koltuk + %15 indirimli tarife</strong>
+          </div>
+          <div class="pet-summary-item">
+            <span>Belgeler</span>
+            <strong>Kimlik kartı + veteriner sağlık raporu</strong>
+          </div>
+          <div class="pet-summary-item">
+            <span>Kuduz Aşısı</span>
+            <strong>30 günden yeni, 1 yıldan eski olmamalıdır</strong>
+          </div>
+          <div class="pet-summary-item">
+            <span>Kılavuz Köpek</span>
+            <strong>Belge şartıyla diz dibinde taşınır</strong>
+          </div>
+        </div>
+
+        <section class="card">
+          <h3>Kontrol Listesi</h3>
+          <div class="rule-list">
+            <div class="rule-row">
+              <div class="rule-icon">✓</div>
+              <div>
+                <h4>Hangi hayvanlar kabul edilir?</h4>
+                <p>Küçük evcil hayvan olarak kedi, köpek ve ötücü kuşlar kabul edilir.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">▣</div>
+              <div>
+                <h4>Kafes şartı nedir?</h4>
+                <p>Hayvan kafesinde olmalıdır. Kafes, yolcunun dizinin üzerinde taşınabilecek ağırlık ve hacimde olmalıdır.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">!</div>
+              <div>
+                <h4>Vagon ve koltuk korunmalı</h4>
+                <p>Kafes ve hayvan; koltukta veya vagonda hasara, kirlenmeye, kokuya ya da diğer yolcuları rahatsız edecek gürültüye sebep olmamalıdır.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">＋</div>
+              <div>
+                <h4>Aşı ve sağlık raporu gerekir</h4>
+                <p>Parazit ve kuduz aşıları yapılmış olmalıdır. Aşı karnesinde belirtilen kuduz aşısı 30 günden yeni, 1 yıldan eski olmamalıdır. Ayrıca veteriner hekimin seyahate engel durum olmadığına dair sağlık raporu bulunmalıdır.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">×</div>
+              <div>
+                <h4>Evcil hayvan taşıma çantası kabul edilmez</h4>
+                <p>Her türlü açık veya kapalı evcil hayvan taşıma çantası trenlere kesinlikle kabul edilmez.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">ID</div>
+              <div>
+                <h4>Yolcunun yanında hangi belge olmalı?</h4>
+                <p>Hayvanın kimlik kartı ve veteriner sağlık raporu seyahat sırasında yanında olmalıdır. Kedi ve süs köpeklerinde belediye sağlık karnesi geçerli kabul edilir.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">V</div>
+              <div>
+                <h4>Hangi vagonlarda taşınır?</h4>
+                <p>Anahat trenlerinde örtülü kuşetli ve yataklı vagonlar dışındaki vagonlarda taşınabilir. YHT trenlerinde ise şartlara uyulması halinde tüm vagonlarda taşımaya izin verilir.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">G</div>
+              <div>
+                <h4>Görme engelli yolcuya refakat eden kılavuz köpek</h4>
+                <p>Belgelerinde belirtilmiş olması kaydıyla, görme engelli yolcuya kılavuzluk eden refakatçi köpekler sahiplerinin refakatinde ve dizlerinin dibinde taşınır. Kılavuz köpek temiz olmalı, tasması ve ağızlığı takılı bulunmalıdır.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">₺</div>
+              <div>
+                <h4>Bilet nasıl kesilir?</h4>
+                <p>Yolcunun kendi biletli koltuğunun yan koltuğu seçilir. “Evcil hayvan” tarifesiyle, tren ve mesafeye göre tam bilet ücreti üzerinden %15 indirimli bilet alınır.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">×</div>
+              <div>
+                <h4>Şartlara uyulmazsa ne olur?</h4>
+                <p>Kurallara uyulmadığı trende tespit edilirse yolcu seyahatten men edilebilir. Tahsil edilen seyahat ücreti iade edilmez.</p>
+              </div>
+            </div>
+          </div>
+          <p class="source-note">
+            Kaynak: <a href="https://www.tcddtasimacilik.gov.tr/tr/evcil_hayvan_tasimalari" target="_blank" rel="noopener">TCDD Taşımacılık Evcil Hayvan Taşımaları</a>.
+          </p>
+        </section>
+      </section>
+
       <section id="tab-baskentray" class="tab-panel" role="tabpanel">
         <div class="panel-header">
           <div>
@@ -995,6 +1194,76 @@ select option {
             <div id="m11-gayrettepe-times"></div>
           </section>
         </div>
+      </section>
+
+      <section id="tab-m11-kargo" class="tab-panel" role="tabpanel">
+        <div class="panel-header">
+          <div>
+            <h2>M11 KARGO - ARNAVUTKÖY</h2>
+            <p>İstasyon seçin, fotoğraftaki Kargo Terminali, Gayrettepe ve Arnavutköy yönü sefer bilgilerini görün.</p>
+          </div>
+        </div>
+        <div class="controls">
+          <label>
+            İstasyon
+            <select id="m11-kargo-station"></select>
+          </label>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+          <section class="card">
+            <h3>Kargo Terminali Yönü</h3>
+            <div class="kv" id="m11-kargo-to-kargo-info"></div>
+          </section>
+          <section class="card">
+            <h3>Gayrettepe Yönü</h3>
+            <div class="kv" id="m11-kargo-to-gayrettepe-info"></div>
+          </section>
+          <section class="card">
+            <h3>Kargo Terminali Yönü (Arnavutköy)</h3>
+            <div class="kv" id="m11-kargo-arna-to-kargo-info"></div>
+          </section>
+          <section class="card">
+            <h3>Arnavutköy Yönü</h3>
+            <div class="kv" id="m11-kargo-to-arna-info"></div>
+          </section>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:16px;">
+          <section class="card">
+            <h3>Kargo Terminali Yönü Tüm Saatler</h3>
+            <div id="m11-kargo-to-kargo-times"></div>
+          </section>
+          <section class="card">
+            <h3>Gayrettepe Yönü Tüm Saatler</h3>
+            <div id="m11-kargo-to-gayrettepe-times"></div>
+          </section>
+          <section class="card">
+            <h3>Kargo Terminali Yönü (Arnavutköy) Tüm Saatler</h3>
+            <div id="m11-kargo-arna-to-kargo-times"></div>
+          </section>
+          <section class="card">
+            <h3>Arnavutköy Yönü Tüm Saatler</h3>
+            <div id="m11-kargo-to-arna-times"></div>
+          </section>
+        </div>
+        <section class="card" style="margin-top:16px;">
+          <h3>Aktarma Notu</h3>
+          <div class="rule-list">
+            <div class="rule-row">
+              <div class="rule-icon">22</div>
+              <div>
+                <h4>Gayrettepe - Kargo Terminali</h4>
+                <p>Gayrettepe ile Kargo Terminali arası 4 vagonlu setlerle 22 dakika aralıklarla aktarmasız işletilmektedir.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">↔</div>
+              <div>
+                <h4>Kargo Terminali - Arnavutköy</h4>
+                <p>Arnavutköy yönüne gidecek yolcular Kargo Terminali'nde karşı peronda bulunan trene geçiş yapmalıdır. Bu bölüm de 22 dakika aralıklarla işletilmektedir.</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
 
       <section id="tab-marmaray" class="tab-panel" role="tabpanel">
@@ -1546,6 +1815,15 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
   const m11GayrettepeInfo = document.getElementById('m11-gayrettepe-info');
   const m11HavalimaniTimes = document.getElementById('m11-havalimani-times');
   const m11GayrettepeTimes = document.getElementById('m11-gayrettepe-times');
+  const m11KargoStation = document.getElementById('m11-kargo-station');
+  const m11KargoToKargoInfo = document.getElementById('m11-kargo-to-kargo-info');
+  const m11KargoToGayrettepeInfo = document.getElementById('m11-kargo-to-gayrettepe-info');
+  const m11KargoArnaToKargoInfo = document.getElementById('m11-kargo-arna-to-kargo-info');
+  const m11KargoToArnaInfo = document.getElementById('m11-kargo-to-arna-info');
+  const m11KargoToKargoTimes = document.getElementById('m11-kargo-to-kargo-times');
+  const m11KargoToGayrettepeTimes = document.getElementById('m11-kargo-to-gayrettepe-times');
+  const m11KargoArnaToKargoTimes = document.getElementById('m11-kargo-arna-to-kargo-times');
+  const m11KargoToArnaTimes = document.getElementById('m11-kargo-to-arna-times');
   const skStation = document.getElementById('sk-station');
   const skSirkeciInfo = document.getElementById('sk-sirkeci-info');
   const skKazlicesmeInfo = document.getElementById('sk-kazlicesme-info');
@@ -2320,6 +2598,122 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     setInterval(render, 60000);
   }
 
+  const M11_KARGO_DATA = {
+    interval: 22,
+    sections: [
+      {
+        title: 'KARGO TERMİNALİ YÖNÜ',
+        terminalName: 'Kargo Terminali',
+        rows: [
+          ['Gayrettepe', '06:02', '20:17'],
+          ['Kağıthane', '06:06', '20:21'],
+          ['Üniversite Hasdal', '06:10', '20:26'],
+          ['Kemerburgaz', '06:15', '20:31'],
+          ['Göktürk', '06:18', '20:34'],
+          ['İhsaniye', '06:26', '20:42'],
+          ['İstanbul Havalimanı', '06:32', '20:47'],
+          ['Kargo Terminali', '--', '--'],
+        ],
+      },
+      {
+        title: 'GAYRETTEPE YÖNÜ',
+        terminalName: 'Gayrettepe',
+        rows: [
+          ['Kargo Terminali', '06:00', '19:30'],
+          ['İstanbul Havalimanı', '06:03', '19:33'],
+          ['İhsaniye', '06:09', '19:39'],
+          ['Göktürk', '06:16', '19:46'],
+          ['Kemerburgaz', '06:20', '19:50'],
+          ['Üniversite Hasdal', '06:25', '19:55'],
+          ['Kağıthane', '06:29', '19:59'],
+          ['Gayrettepe', '--', '--'],
+        ],
+      },
+      {
+        title: 'KARGO TERMİNALİ YÖNÜ (ARNAVUTKÖY)',
+        terminalName: 'Kargo Terminali',
+        rows: [
+          ['Arnavutköy', '05:45', '19:15'],
+          ['Taşoluk', '05:49', '19:19'],
+          ['Kargo Terminali', '--', '--'],
+        ],
+      },
+      {
+        title: 'ARNAVUTKÖY YÖNÜ',
+        terminalName: 'Arnavutköy',
+        rows: [
+          ['Kargo Terminali', '05:57', '20:50'],
+          ['Taşoluk', '06:03', '20:56'],
+          ['Arnavutköy', '--', '--'],
+        ],
+      },
+    ],
+  };
+
+  function initM11Kargo() {
+    if (!m11KargoStation) return;
+    const sections = M11_KARGO_DATA.sections;
+    const stations = getM11Stations(sections);
+    m11KargoStation.innerHTML = '<option value="">— İstasyon Seçin —</option>' + stations
+      .map((station) => `<option value="${station}">${station}</option>`)
+      .join('');
+
+    const render = () => {
+      const station = m11KargoStation.value;
+      if (!station) {
+        const message = '<p style="color:var(--muted);">Lütfen istasyon seçin.</p>';
+        [
+          m11KargoToKargoInfo,
+          m11KargoToGayrettepeInfo,
+          m11KargoArnaToKargoInfo,
+          m11KargoToArnaInfo,
+          m11KargoToKargoTimes,
+          m11KargoToGayrettepeTimes,
+          m11KargoArnaToKargoTimes,
+          m11KargoToArnaTimes,
+        ].forEach((el) => { if (el) el.innerHTML = message; });
+        return;
+      }
+
+      renderM11Direction({
+        rows: sections[0].rows,
+        station,
+        terminalName: sections[0].terminalName,
+        infoEl: m11KargoToKargoInfo,
+        timesEl: m11KargoToKargoTimes,
+        interval: M11_KARGO_DATA.interval,
+      });
+      renderM11Direction({
+        rows: sections[1].rows,
+        station,
+        terminalName: sections[1].terminalName,
+        infoEl: m11KargoToGayrettepeInfo,
+        timesEl: m11KargoToGayrettepeTimes,
+        interval: M11_KARGO_DATA.interval,
+      });
+      renderM11Direction({
+        rows: sections[2].rows,
+        station,
+        terminalName: sections[2].terminalName,
+        infoEl: m11KargoArnaToKargoInfo,
+        timesEl: m11KargoArnaToKargoTimes,
+        interval: M11_KARGO_DATA.interval,
+      });
+      renderM11Direction({
+        rows: sections[3].rows,
+        station,
+        terminalName: sections[3].terminalName,
+        infoEl: m11KargoToArnaInfo,
+        timesEl: m11KargoToArnaTimes,
+        interval: M11_KARGO_DATA.interval,
+      });
+    };
+
+    m11KargoStation.addEventListener('change', render);
+    render();
+    setInterval(render, 60000);
+  }
+
   function getM11Stations(sections) {
     const order = [];
     sections.forEach((section) => {
@@ -2346,7 +2740,7 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     return times;
   }
 
-  function renderM11Direction({ rows, station, terminalName, infoEl, timesEl }) {
+  function renderM11Direction({ rows, station, terminalName, infoEl, timesEl, interval = 20 }) {
     if (!infoEl || !timesEl) return;
     if (station === terminalName) {
       infoEl.innerHTML = `<p style="color:var(--muted);">${terminalName} bu yönün son durağı.</p>`;
@@ -2363,7 +2757,7 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
 
     const first = row[1];
     const last = row[2];
-    const times = buildIntervalTimes(first, last, 20);
+    const times = buildIntervalTimes(first, last, interval);
     const firstMins = toScheduleMinute(first);
     const now = new Date();
     const nowMins = now.getHours() * 60 + now.getMinutes();
@@ -2395,6 +2789,8 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
       </div>
     `;
   }
+
+  initM11Kargo();
 
   function initSirkeciKazlicesme() {
     const dataSet = (window.EXEL_DATA || {}).sirkeciKazlicesme;
