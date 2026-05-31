@@ -791,6 +791,131 @@ select option {
   line-height: 1.4;
 }
 
+.notice-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 20px;
+  background: rgba(2, 6, 12, 0.72);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+}
+.notice-modal.active {
+  display: grid;
+}
+.notice-modal-card {
+  position: relative;
+  width: min(520px, 100%);
+  background: linear-gradient(135deg, rgba(13, 24, 34, 0.98), rgba(9, 14, 24, 0.99));
+  border: 1px solid rgba(98, 232, 207, 0.28);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 28px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.04) inset;
+}
+.notice-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  color: var(--ink);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.notice-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #061018;
+  font-weight: 900;
+  font-size: 24px;
+}
+.notice-modal-card h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: var(--ink);
+}
+.notice-modal-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.65;
+}
+.notice-list {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.notice-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  background: rgba(255,255,255,.045);
+  color: var(--ink);
+}
+.notice-route {
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+.notice-time {
+  flex: 0 0 auto;
+  min-width: 70px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(98, 232, 207, 0.16);
+  color: var(--accent);
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+}
+.notice-action {
+  margin-top: 22px;
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #061018;
+  font-weight: 800;
+  cursor: pointer;
+}
+.info-button {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(98, 232, 207, 0.28);
+  border-radius: 50%;
+  background: rgba(98, 232, 207, 0.10);
+  color: var(--accent);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform .15s, border-color .15s, background .15s;
+}
+.info-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(98, 232, 207, 0.55);
+  background: rgba(98, 232, 207, 0.16);
+}
+
 </style>
   </head>
   <body>
@@ -825,6 +950,11 @@ select option {
             <span class="home-card-title">Evcil Hayvan Taşıma Kuralları</span>
             <span class="home-card-sub">Kafes, belge, vagon ve bilet şartları</span>
           </button>
+          <button class="home-card" data-url="https://trenbiletim.com.tr/kabin-tarama">
+            <span class="home-card-icon">🔎</span>
+            <span class="home-card-title">Kabin Tarama</span>
+            <span class="home-card-sub">Trenbiletim kabin tarama sayfası</span>
+          </button>
           <button class="home-card" data-tab="baskentray">
             <span class="home-card-icon">🚆</span>
             <span class="home-card-title">BAŞKENTRAY</span>
@@ -839,11 +969,6 @@ select option {
             <span class="home-card-icon">✈️</span>
             <span class="home-card-title">M11 METRO</span>
             <span class="home-card-sub">Gayrettepe ve Havalimanı yönleri</span>
-          </button>
-          <button class="home-card" data-tab="m11-kargo">
-            <span class="home-card-icon">🛫</span>
-            <span class="home-card-title">M11 KARGO - ARNAVUTKÖY</span>
-            <span class="home-card-sub">Fotoğraftaki güncel ilk/son trenler</span>
           </button>
           <button class="home-card" data-tab="marmaray">
             <span class="home-card-icon">🌊</span>
@@ -1167,6 +1292,7 @@ select option {
             <h2>M11 METRO</h2>
             <p>İstasyon seçin, Arnavutköy-Hastane ve Gayrettepe yönlerindeki sefer bilgilerini görün.</p>
           </div>
+          <button class="info-button" id="m11-info-button" type="button" aria-label="M11 son tren bilgilendirmesini aç">i</button>
         </div>
         <div class="controls">
           <label>
@@ -1249,10 +1375,17 @@ select option {
           <h3>Aktarma Notu</h3>
           <div class="rule-list">
             <div class="rule-row">
+              <div class="rule-icon">00</div>
+              <div>
+                <h4>Son tren özeti</h4>
+                <p>Arnavutköy - Kargo Terminali son tren 23:42, Kargo Terminali - Gayrettepe son tren 00:00, Gayrettepe - Arnavutköy son tren 00:47 şeklinde işlemektedir.</p>
+              </div>
+            </div>
+            <div class="rule-row">
               <div class="rule-icon">22</div>
               <div>
-                <h4>Gayrettepe - Kargo Terminali</h4>
-                <p>Gayrettepe ile Kargo Terminali arası 4 vagonlu setlerle 22 dakika aralıklarla aktarmasız işletilmektedir.</p>
+                <h4>Kargo Terminali aktarmalı işletim</h4>
+                <p>Trenler Kargo Terminali aktarmalı olarak 22 dk aralıklarla hizmet vermektedir.</p>
               </div>
             </div>
             <div class="rule-row">
@@ -1353,6 +1486,30 @@ select option {
             </div><!-- /panel-area -->
     </main>
 
+    <div class="notice-modal" id="m11-notice" aria-hidden="true">
+      <div class="notice-modal-card" role="dialog" aria-modal="true" aria-labelledby="m11-notice-title">
+        <button class="notice-close" id="m11-notice-close" type="button" aria-label="Bilgilendirmeyi kapat">×</button>
+        <div class="notice-icon">!</div>
+        <h3 id="m11-notice-title">M11 Son Tren Bilgilendirmesi</h3>
+        <p>Son tren saatleri aşağıdaki şekilde işlemektedir.</p>
+        <ul class="notice-list">
+          <li>
+            <span class="notice-route">Arnavutköy - Kargo Terminali</span>
+            <span class="notice-time">23:42</span>
+          </li>
+          <li>
+            <span class="notice-route">Kargo Terminali - Gayrettepe</span>
+            <span class="notice-time">00:00</span>
+          </li>
+          <li>
+            <span class="notice-route">Gayrettepe - Arnavutköy</span>
+            <span class="notice-time">00:47</span>
+          </li>
+        </ul>
+        <button class="notice-action" id="m11-notice-ok" type="button">Tamam</button>
+      </div>
+    </div>
+
     <footer class="footer"></footer>
 
     <script>
@@ -1365,6 +1522,22 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
   const panels = document.querySelectorAll('.tab-panel');
   const homeScreen = document.getElementById('home-screen');
   const panelArea  = document.getElementById('panel-area');
+  const m11Notice = document.getElementById('m11-notice');
+  const m11NoticeClose = document.getElementById('m11-notice-close');
+  const m11NoticeOk = document.getElementById('m11-notice-ok');
+  const m11InfoButton = document.getElementById('m11-info-button');
+
+  function showM11Notice() {
+    if (!m11Notice) return;
+    m11Notice.classList.add('active');
+    m11Notice.setAttribute('aria-hidden', 'false');
+  }
+
+  function hideM11Notice() {
+    if (!m11Notice) return;
+    m11Notice.classList.remove('active');
+    m11Notice.setAttribute('aria-hidden', 'true');
+  }
 
   function showPanel(id) {
     panels.forEach(p => p.classList.remove('active'));
@@ -1373,6 +1546,7 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     target.classList.add('active');
     homeScreen.style.display = 'none';
     panelArea.style.display  = 'block';
+    if (id === 'm11') showM11Notice();
     if (id === 'marmaray') renderMarmaray();
     window.scrollTo(0, 0);
   }
@@ -1386,7 +1560,31 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
   window.goHome = goHome;
 
   document.querySelectorAll('.home-card').forEach(card => {
-    card.addEventListener('click', () => showPanel(card.dataset.tab));
+    card.addEventListener('click', () => {
+      if (card.dataset.url) {
+        window.location.href = card.dataset.url;
+        return;
+      }
+      showPanel(card.dataset.tab);
+    });
+  });
+
+  [m11NoticeClose, m11NoticeOk].forEach(button => {
+    if (button) button.addEventListener('click', hideM11Notice);
+  });
+
+  if (m11InfoButton) {
+    m11InfoButton.addEventListener('click', showM11Notice);
+  }
+
+  if (m11Notice) {
+    m11Notice.addEventListener('click', event => {
+      if (event.target === m11Notice) hideM11Notice();
+    });
+  }
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') hideM11Notice();
   });
 
 
@@ -2244,6 +2442,29 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     return (age.years * 12) + age.months;
   }
 
+  function getFareAge(age) {
+    return age.years + 1;
+  }
+
+  function getAgeFare(fareAge, under72Months) {
+    if (under72Months) {
+      return '72 aydan küçük: bilet zorunlu değil';
+    }
+    if (fareAge >= 7 && fareAge <= 12) {
+      return '%50 çocuk tarifesi uygun';
+    }
+    if (fareAge >= 13 && fareAge <= 26) {
+      return '%15 genç tarifesi uygun';
+    }
+    if (fareAge >= 60 && fareAge <= 64) {
+      return '%15 indirim uygun';
+    }
+    if (fareAge >= 65) {
+      return '%50 indirim uygun';
+    }
+    return 'Bu yaş aralığı için özel indirim görünmüyor';
+  }
+
   function renderYasMessage(label, value, className = '') {
     return `
       <div class="kv-item ${className}">
@@ -2271,6 +2492,7 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     const under72Months = travelDate < thresholdDate;
     const age = getAgeParts(birthDate, travelDate);
     const totalMonths = getTotalAgeMonths(birthDate, travelDate);
+    const fareAge = getFareAge(age);
     const distance = Math.abs(diffDays(travelDate, thresholdDate));
     const distanceText = under72Months
       ? `72 ayını doldurmasına ${distance} gün var.`
@@ -2278,6 +2500,7 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     const explanation = under72Months
       ? 'Seyahat tarihinde 72 aydan küçük olduğu için bilet kesilmez.'
       : 'Seyahat tarihinde 72 ayını doldurduğu için bilet gerekir.';
+    const fareText = getAgeFare(fareAge, under72Months);
 
     yasResult.innerHTML = [
       renderYasMessage(
@@ -2285,6 +2508,8 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
         under72Months ? 'Bilet zorunlu değil' : 'Bilet gerekli',
         under72Months ? 'age-status age-status-ok' : 'age-status age-status-warn'
       ),
+      renderYasMessage('Tarife / İndirim', fareText),
+      renderYasMessage('Tarife Yaşı', `${fareAge} yaşından gün alıyor`),
       renderYasMessage('Yaş', `${age.years} yıl ${age.months} ay ${age.days} gün`),
       renderYasMessage('Ay Olarak Yaş', `${totalMonths} ay ${age.days} gün`),
       renderYasMessage('72 Ay Dolum Tarihi', formatDateTR(thresholdDate)),
@@ -2333,6 +2558,15 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     renderYasHesaplama();
   }
 
+  function setDateSelectorValue({ daySelect, monthSelect, yearSelect, input, date }) {
+    if (!daySelect || !monthSelect || !yearSelect || !input || !date) return;
+    yearSelect.value = String(date.getFullYear());
+    monthSelect.value = padDatePart(date.getMonth() + 1);
+    updateDayOptions(daySelect, monthSelect, yearSelect);
+    daySelect.value = padDatePart(date.getDate());
+    syncDateValue({ daySelect, monthSelect, yearSelect, input });
+  }
+
   function initDateSelector({ daySelect, monthSelect, yearSelect, input, minYear, maxYear }) {
     if (!daySelect || !monthSelect || !yearSelect || !input) return;
     const months = [
@@ -2373,6 +2607,13 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
       input: yasTravelInput,
       minYear: currentYear - 2,
       maxYear: currentYear + 5,
+    });
+    setDateSelectorValue({
+      daySelect: yasTravelDay,
+      monthSelect: yasTravelMonth,
+      yearSelect: yasTravelYear,
+      input: yasTravelInput,
+      date: new Date(),
     });
     renderYasHesaplama();
   }
@@ -2600,18 +2841,30 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
 
   const M11_KARGO_DATA = {
     interval: 22,
+    stationOrder: [
+      'Gayrettepe',
+      'Kağıthane',
+      'Üniversite Hasdal',
+      'Kemerburgaz',
+      'Göktürk',
+      'İhsaniye',
+      'İstanbul Havalimanı',
+      'Kargo Terminali',
+      'Taşoluk',
+      'Arnavutköy',
+    ],
     sections: [
       {
         title: 'KARGO TERMİNALİ YÖNÜ',
         terminalName: 'Kargo Terminali',
         rows: [
-          ['Gayrettepe', '06:02', '20:17'],
-          ['Kağıthane', '06:06', '20:21'],
-          ['Üniversite Hasdal', '06:10', '20:26'],
-          ['Kemerburgaz', '06:15', '20:31'],
-          ['Göktürk', '06:18', '20:34'],
-          ['İhsaniye', '06:26', '20:42'],
-          ['İstanbul Havalimanı', '06:32', '20:47'],
+          ['Gayrettepe', '06:02', '00:47'],
+          ['Kağıthane', '06:06', '00:51'],
+          ['Üniversite Hasdal', '06:10', '00:55'],
+          ['Kemerburgaz', '06:15', '01:00'],
+          ['Göktürk', '06:18', '01:03'],
+          ['İhsaniye', '06:26', '01:11'],
+          ['İstanbul Havalimanı', '06:32', '01:17'],
           ['Kargo Terminali', '--', '--'],
         ],
       },
@@ -2619,13 +2872,13 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
         title: 'GAYRETTEPE YÖNÜ',
         terminalName: 'Gayrettepe',
         rows: [
-          ['Kargo Terminali', '06:00', '19:30'],
-          ['İstanbul Havalimanı', '06:03', '19:33'],
-          ['İhsaniye', '06:09', '19:39'],
-          ['Göktürk', '06:16', '19:46'],
-          ['Kemerburgaz', '06:20', '19:50'],
-          ['Üniversite Hasdal', '06:25', '19:55'],
-          ['Kağıthane', '06:29', '19:59'],
+          ['Kargo Terminali', '06:00', '00:00'],
+          ['İstanbul Havalimanı', '06:03', '00:03'],
+          ['İhsaniye', '06:09', '00:09'],
+          ['Göktürk', '06:16', '00:16'],
+          ['Kemerburgaz', '06:20', '00:20'],
+          ['Üniversite Hasdal', '06:25', '00:25'],
+          ['Kağıthane', '06:29', '00:29'],
           ['Gayrettepe', '--', '--'],
         ],
       },
@@ -2633,8 +2886,8 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
         title: 'KARGO TERMİNALİ YÖNÜ (ARNAVUTKÖY)',
         terminalName: 'Kargo Terminali',
         rows: [
-          ['Arnavutköy', '05:45', '19:15'],
-          ['Taşoluk', '05:49', '19:19'],
+          ['Arnavutköy', '05:45', '23:42'],
+          ['Taşoluk', '05:49', '23:46'],
           ['Kargo Terminali', '--', '--'],
         ],
       },
@@ -2653,7 +2906,7 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
   function initM11Kargo() {
     if (!m11KargoStation) return;
     const sections = M11_KARGO_DATA.sections;
-    const stations = getM11Stations(sections);
+    const stations = M11_KARGO_DATA.stationOrder || getM11Stations(sections);
     m11KargoStation.innerHTML = '<option value="">— İstasyon Seçin —</option>' + stations
       .map((station) => `<option value="${station}">${station}</option>`)
       .join('');
