@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>KAM - Helper </title>
-    <style>
+<style>
 :root {
   --ink: #e9f0f2;
   --muted: #8899a6;
@@ -70,15 +70,56 @@ h1 {
   100% { background-position: 200% center; }
 }
 
-.kam-subtitle {
-  display: block;
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 4px;
+  font-weight: 700;
+  letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 6px;
-  opacity: 0.7;
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+
+.hero-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulse-dot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.75); }
+}
+
+.hero-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.hero-helper-tag {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  opacity: 0.55;
+  font-family: "Space Grotesk", monospace;
+  padding-bottom: 6px;
+}
+
+.hero-desc {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  opacity: 0.6;
 }
 
 .bg {
@@ -469,6 +510,16 @@ select:focus, input[type="search"]:focus, input[type="date"]:focus {
   color: var(--muted);
 }
 
+.age-status-indirim {
+  color: #06101f;
+  background: linear-gradient(135deg, #a0b4ff, #d6deff);
+  border-color: rgba(108, 143, 255, 0.7);
+}
+
+.age-status-indirim span {
+  color: rgba(6, 16, 31, 0.65);
+}
+
 .pet-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -545,6 +596,155 @@ select:focus, input[type="search"]:focus, input[type="date"]:focus {
 
 .source-note a {
   color: var(--accent);
+}
+
+.numara-card {
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.numara-card:hover {
+  border-color: rgba(0,229,199,0.35);
+  background: rgba(0,229,199,0.05);
+}
+
+.numara-card.copied {
+  border-color: var(--accent);
+  background: rgba(0,229,199,0.1);
+}
+
+.numara-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.numara-desc {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.numara-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.indirim-row {
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.indirim-row-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.indirim-row-tarife {
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.indirim-row-price {
+  font-size: 32px;
+  font-weight: 900;
+  margin-top: 6px;
+}
+
+.indirim-row-adet {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.adet-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,0.06);
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.adet-btn:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.adet-btn-plus {
+  background: rgba(0,229,199,0.1);
+  border-color: rgba(0,229,199,0.3);
+  color: var(--accent);
+}
+
+.adet-btn-plus:hover {
+  background: rgba(0,229,199,0.2);
+}
+
+.indirim-row-ara {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 4px;
+  min-height: 22px;
+}
+
+.bildirim-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.bildirim-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 10px 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.bildirim-item:hover {
+  background: rgba(0,229,199,0.08);
+  border-color: rgba(0,229,199,0.3);
+  color: var(--accent);
+}
+
+.bildirim-item.copied {
+  background: rgba(0,229,199,0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .table-wrap {
@@ -950,6 +1150,11 @@ select option {
             <span class="home-card-title">Evcil Hayvan Taşıma Kuralları</span>
             <span class="home-card-sub">Kafes, belge, vagon ve bilet şartları</span>
           </button>
+          <button class="home-card" data-tab="bagaj">
+            <span class="home-card-icon">🧳</span>
+            <span class="home-card-title">Bagaj Taşımaları</span>
+            <span class="home-card-sub">El bagajı ölçü, ücret ve kuralları</span>
+          </button>
           <button class="home-card" data-url="https://trenbiletim.com.tr/kabin-tarama">
             <span class="home-card-icon">🔎</span>
             <span class="home-card-title">Kabin Tarama</span>
@@ -974,6 +1179,21 @@ select option {
             <span class="home-card-icon">🌊</span>
             <span class="home-card-title">MARMARAY</span>
             <span class="home-card-sub">Halkalı–Gebze ilk/son seferler</span>
+          </button>
+          <button class="home-card" data-tab="numaralar">
+            <span class="home-card-icon">📞</span>
+            <span class="home-card-title">Sık Kullanılan Numaralar</span>
+            <span class="home-card-sub">Tıkla, kopyala</span>
+          </button>
+          <button class="home-card" data-tab="indirim-hesap">
+            <span class="home-card-icon">🧮</span>
+            <span class="home-card-title">İndirim Hesaplayıcı</span>
+            <span class="home-card-sub">Tam fiyattan indirimli fiyat</span>
+          </button>
+          <button class="home-card" data-tab="bildirim">
+            <span class="home-card-icon">📋</span>
+            <span class="home-card-title">Bildirim Kaydı</span>
+            <span class="home-card-sub">Kayıt ve bildirim işlemleri</span>
           </button>
         </div>
       </div>
@@ -1207,6 +1427,225 @@ select option {
           <p class="source-note">
             Kaynak: <a href="https://www.tcddtasimacilik.gov.tr/tr/evcil_hayvan_tasimalari" target="_blank" rel="noopener">TCDD Taşımacılık Evcil Hayvan Taşımaları</a>.
           </p>
+        </section>
+      </section>
+
+      <section id="tab-numaralar" class="tab-panel" role="tabpanel">
+        <div class="panel-header">
+          <div>
+            <h2>SIK KULLANILAN NUMARALAR</h2>
+            <p>Numaraya tıkla, kopyala, yapıştır.</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+
+          <section class="card numara-card" onclick="copyNumara(this)" role="button" tabindex="0">
+            <div class="numara-label">Çözüm Merkezi</div>
+            <div class="numara-desc">Şikayet ve sorunlar için yönlendirme hattı</div>
+            <div class="numara-value">0507 321 82 43</div>
+          </section>
+
+          <section class="card numara-card" onclick="copyNumara(this)" role="button" tabindex="0">
+            <div class="numara-label">ALO 131</div>
+            <div class="numara-desc">TCDD Acil Durum İhbar Hattı</div>
+            <div class="numara-value">131</div>
+          </section>
+
+          <section class="card numara-card" onclick="copyNumara(this)" role="button" tabindex="0">
+            <div class="numara-label">İBB Metro</div>
+            <div class="numara-desc">İstanbul Büyükşehir Belediyesi metro hattı yönlendirme</div>
+            <div class="numara-value">153</div>
+          </section>
+
+          <section class="card numara-card" onclick="copyNumara(this)" role="button" tabindex="0">
+            <div class="numara-label">Marmaray Kayıp Eşya</div>
+            <div class="numara-desc">Marmaray'da unutulan/kaybedilen eşya bildirimi</div>
+            <div class="numara-value">0216 536 26 05</div>
+          </section>
+
+        </div>
+      </section>
+
+      <section id="tab-indirim-hesap" class="tab-panel" role="tabpanel">
+        <div class="panel-header">
+          <div>
+            <h2>İNDİRİM HESAPLAYICI</h2>
+            <p>Tam bilet fiyatını gir, indirimli fiyatları anında gör.</p>
+          </div>
+        </div>
+        <div style="max-width:480px;">
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--muted);margin-bottom:24px;">
+            Tam Bilet Fiyatı (TL)
+            <input id="indirim-input" type="number" min="0" placeholder="Örn: 430"
+              style="padding:14px 16px;border-radius:14px;border:1px solid var(--stroke);background:var(--surface-3);font-size:22px;font-weight:700;color:var(--ink);outline:none;width:100%;color-scheme:dark;transition:border-color 0.2s;"
+              oninput="hesaplaIndirim()"
+              onfocus="this.style.borderColor='var(--accent)'"
+              onblur="this.style.borderColor='var(--stroke)'" />
+          </label>
+        </div>
+        <div id="indirim-result" style="display:flex;flex-direction:column;gap:12px;"></div>
+        <div id="indirim-toplam" style="display:none;align-items:center;justify-content:space-between;margin-top:8px;padding:20px 24px;border-radius:16px;background:linear-gradient(135deg,rgba(0,229,199,0.12),rgba(108,143,255,0.08));border:1px solid rgba(0,229,199,0.3);">
+          <span style="font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">Toplam</span>
+          <span class="toplam-deger" style="font-size:36px;font-weight:900;color:var(--accent);"></span>
+        </div>
+      </section>
+
+      <section id="tab-bildirim" class="tab-panel" role="tabpanel">
+        <div class="panel-header">
+          <div>
+            <h2>BİLDİRİM KAYDI</h2>
+            <p>Üzerine tıkla, metni kopyala, yapıştır.</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+
+          <section class="card">
+            <h3>🎫 Bilet İşlemleri</h3>
+            <div class="bildirim-list">
+              <button class="bildirim-item" onclick="copyBildirim(this)">Bilet iptali talebi alındı, işlem gerçekleştirildi.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Bilet değişikliği talebi alındı, işlem gerçekleştirildi.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Bilet bilgileri sorgulandı, gerekli bilgi verildi.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Bilet satışı tamamlandı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Talep edilen seferde müsait yer bulunamaması nedeniyle satış gerçekleştirilemedi.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">İade koşulları ve süreci hakkında bilgilendirme yapıldı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">İndirim ve tarife bilgisi talep edildi, gerekli bilgilendirme yapıldı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Abonman paketi hakkında bilgilendirme yapıldı.</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <h3>🚆 Sefer Bilgisi</h3>
+            <div class="bildirim-list">
+              <button class="bildirim-item" onclick="copyBildirim(this)">Sefer saati ve güzergah bilgisi talep edildi, bilgilendirme yapıldı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Seferin gecikip gecikmediği sorgulandı, güncel durum iletildi.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Sefer iptali nedeniyle arama yapıldı, durum hakkında bilgilendirme yapıldı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Başkentray sefer saatleri soruldu, bilgilendirme yapıldı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Marmaray sefer saatleri soruldu, bilgilendirme yapıldı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">M11 Metro sefer saatleri soruldu, bilgilendirme yapıldı.</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <h3>📁 Diğer</h3>
+            <div class="bildirim-list">
+              <button class="bildirim-item" onclick="copyBildirim(this)">Evcil hayvan taşıma koşulları soruldu, ayrıntılı bilgilendirme yapıldı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">El bagajı ölçü ve ücret bilgisi talep edildi, bilgilendirme yapıldı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Engelli yolcu hak ve hizmetleri hakkında bilgilendirme yapıldı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">En yakın bilet satış noktası soruldu, yönlendirme yapıldı.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Seyahate ilişkin şikayet iletildi, çözüm merkezine yönlendirildi.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Hizmet kalitesine ilişkin şikayet alındı, çözüm merkezine yönlendirildi.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Kayıp eşya bildirimi alındı, çözüm merkezine yönlendirildi.</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Marmaray kayıp eşya talebi alındı, ilgili hat yolcuya iletildi. (0216 536 26 05)</button>
+              <button class="bildirim-item" onclick="copyBildirim(this)">Yanlış arama, görüşme sonlandırıldı.</button>
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+      <section id="tab-bagaj" class="tab-panel" role="tabpanel">
+        <div class="panel-header">
+          <div>
+            <h2>EL BAGAJI TAŞIMALARI</h2>
+            <p>YHT, Anahat ve Bölgesel trenlerde el bagajı ölçü, ücret ve kuralları.</p>
+          </div>
+        </div>
+
+        <div class="pet-summary">
+          <div class="pet-summary-item">
+            <span>Ücretsiz (1 parça)</span>
+            <strong>65 × 50 × 35 cm</strong>
+          </div>
+          <div class="pet-summary-item">
+            <span>Ücretsiz (2 parça)</span>
+            <strong>55 × 40 × 23 cm</strong>
+          </div>
+          <div class="pet-summary-item">
+            <span>İlave Bagaj</span>
+            <strong>150 TL / parça</strong>
+          </div>
+          <div class="pet-summary-item">
+            <span>Büyük Boy 1. parça</span>
+            <strong>150 TL sabit</strong>
+          </div>
+          <div class="pet-summary-item">
+            <span>Büyük Boy 2. parça</span>
+            <strong>385 TL sabit</strong>
+          </div>
+          <div class="pet-summary-item">
+            <span>Maks. valiz (orta boy)</span>
+            <strong>2 adet / kişi</strong>
+          </div>
+        </div>
+
+        <section class="card">
+          <h3>Kurallar ve Detaylar</h3>
+          <div class="rule-list">
+            <div class="rule-row">
+              <div class="rule-icon">✓</div>
+              <div>
+                <h4>Ücretsiz taşıma hakkı</h4>
+                <p>Ticari mahiyette olmayan; <strong>65×50×35 cm</strong> ebatlarını geçmeyen 1 parça <em>veya</em> <strong>55×40×23 cm</strong> ebatlarını geçmeyen 2 parça el bagajı ücretsiz taşınır. Baş üstü bölüme sığan sporcu çantaları da kişi başı 2 parçaya kadar ücretsizdir.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">₺</div>
+              <div>
+                <h4>İlave bagaj ücreti</h4>
+                <p>Ücretsiz haktan fazla olan aynı ölçülerdeki her ilave parça <strong>150 TL</strong> ücrete tabidir. Ücretli olsa dahi orta boy valizlerde en fazla <strong>2 adet</strong>, küçük boy valizlerde en fazla <strong>3 adet</strong> taşınabilir.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">₺</div>
+              <div>
+                <h4>Büyük boy (battal) valiz ücreti</h4>
+                <p>Standart ölçüleri aşan büyük boy valizlerde: 1. parça için <strong>150 TL</strong> sabit ücret, 2. parça için <strong>385 TL</strong> sabit ücret alınır. Kişi başı büyük boy valiz sayısı <strong>2 adetten</strong> fazla olamaz.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">×</div>
+              <div>
+                <h4>Trene kabul edilmeyenler</h4>
+                <p>Battal boydan büyük valiz ve eşyalar, yetersiz ambalajlı eşyalar, akan/kokan maddeler, diğer yolcuları rahatsız edecek eşyalar ile yolcu geçişini ve güvenli iniş-binişi tehlikeye sokacak eşyalar (halı, torba, çuval, beyaz eşya vb.) trenlere <strong>kesinlikle kabul edilmez.</strong></p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">▣</div>
+              <div>
+                <h4>Bagajın yerleştirilmesi</h4>
+                <p>El bagajları, bilet tipine (pulman, kuşetli, yataklı vb.) göre tahsis edilen alanın üst bölümüne ya da trende bagaj için ayrılan yerlere konulmalıdır. Tüm bagajların el çantası, valiz, bavul, sepet veya kutu içinde bulundurulması zorunludur.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">＋</div>
+              <div>
+                <h4>Sağlık ekipmanları</h4>
+                <p>Ebatları uygun olmak şartıyla, diğer yolculara rahatsızlık vermeyecek nitelikteki sağlık ekipmanları (solunum cihazı vb.) <strong>ücretsiz</strong> taşınabilir.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">!</div>
+              <div>
+                <h4>Şüpheli durum araması</h4>
+                <p>Kontrol noktalarında veya trende şüpheli/tehlikeli durum tespit edilirse görevli personel ya da emniyet makamları el bagajını arayabilir; bu durumda trene biniş veya seyahat engellenebilir. Emniyet makamlarının tüm ikaz ve direktiflerine uymak zorunludur.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">!</div>
+              <div>
+                <h4>Zarar sorumluluğu</h4>
+                <p>El bagajından kaynaklanan her türlü zarar ve ziyandan <strong>eşya sahibi sorumludur.</strong> Tren üstünde bir olay yaşanırsa görevli personel, tarafların kimlik bilgilerini içeren bir tutanak düzenler.</p>
+              </div>
+            </div>
+            <div class="rule-row">
+              <div class="rule-icon">×</div>
+              <div>
+                <h4>Ücret iadesi yapılmaz</h4>
+                <p>Kurallara uyulmadığı tespit edilirse yolcu seyahatten men edilir ve <strong>bilet ücreti dahil hiçbir ücret iade edilmez.</strong> Trenlerde tahsil edilen bagaj ücreti de hiçbir şekilde iade edilmez.</p>
+              </div>
+            </div>
+          </div>
         </section>
       </section>
 
@@ -1494,16 +1933,12 @@ select option {
         <p>Son tren saatleri aşağıdaki şekilde işlemektedir.</p>
         <ul class="notice-list">
           <li>
-            <span class="notice-route">Arnavutköy - Kargo Terminali</span>
-            <span class="notice-time">23:42</span>
+            <span class="notice-route">Arnavutköy → Gayrettepe</span>
+            <span class="notice-time">19:15</span>
           </li>
           <li>
-            <span class="notice-route">Kargo Terminali - Gayrettepe</span>
-            <span class="notice-time">00:00</span>
-          </li>
-          <li>
-            <span class="notice-route">Gayrettepe - Arnavutköy</span>
-            <span class="notice-time">00:47</span>
+            <span class="notice-route">Gayrettepe → Arnavutköy</span>
+            <span class="notice-time">20:17</span>
           </li>
         </ul>
         <button class="notice-action" id="m11-notice-ok" type="button">Tamam</button>
@@ -1539,6 +1974,111 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     m11Notice.setAttribute('aria-hidden', 'true');
   }
 
+  function copyNumara(el) {
+    const numara = el.querySelector('.numara-value').innerText;
+    navigator.clipboard.writeText(numara).then(() => {
+      el.classList.add('copied');
+      const orig = el.querySelector('.numara-value').innerText;
+      el.querySelector('.numara-value').innerText = '✓ Kopyalandı!';
+      setTimeout(() => {
+        el.classList.remove('copied');
+        el.querySelector('.numara-value').innerText = orig;
+      }, 1500);
+    });
+  }
+
+  function hesaplaIndirim() {
+    const input = document.getElementById('indirim-input');
+    const result = document.getElementById('indirim-result');
+    const tam = parseFloat(input.value);
+    if (!tam || tam <= 0) { result.innerHTML = ''; return; }
+
+    const satirlar = [
+      { id: 'tam', label: 'Tam Fiyat', tarife: 'Standart tarife', oran: 1, renk: 'var(--ink)' },
+      { id: 'genc', label: '%15 İndirimli', tarife: 'Genç (13–26 yaş) · 60–64 yaş', oran: 0.85, renk: 'var(--accent-2)' },
+      { id: 'cocuk', label: '%50 İndirimli', tarife: 'Çocuk (7–12 yaş) · 65 yaş ve üzeri', oran: 0.50, renk: 'var(--accent)' },
+    ];
+
+    const mevcutAdetler = {};
+    satirlar.forEach(s => {
+      const el = document.getElementById(`adet-${s.id}`);
+      mevcutAdetler[s.id] = el ? parseInt(el.value) || 0 : 0;
+    });
+
+    result.innerHTML = satirlar.map(s => {
+      const fiyat = Math.ceil(tam * s.oran / 5) * 5;
+      const adet = mevcutAdetler[s.id] || 0;
+      return `
+        <div class="indirim-row">
+          <div class="indirim-row-label">${s.label}</div>
+          <div class="indirim-row-tarife">${s.tarife}</div>
+          <div class="indirim-row-price" style="color:${s.renk};">${fiyat} TL</div>
+          <div class="indirim-row-adet">
+            <button class="adet-btn" onclick="adetDegistir('${s.id}', -1)">−</button>
+            <input id="adet-${s.id}" type="number" min="0" value="${adet}" placeholder="0"
+              style="width:52px;padding:6px 8px;border-radius:8px;border:1px solid var(--stroke);background:var(--surface-3);color:var(--ink);font-size:16px;font-weight:700;outline:none;color-scheme:dark;text-align:center;"
+              oninput="guncelleToplamIndirim()" />
+            <button class="adet-btn adet-btn-plus" onclick="adetDegistir('${s.id}', 1)">+</button>
+          </div>
+          <div class="indirim-row-ara" id="ara-${s.id}" style="color:${s.renk};">
+            ${adet > 0 ? `= ${fiyat * adet} TL` : ''}
+          </div>
+        </div>`;
+    }).join('');
+
+    guncelleToplamIndirim();
+  }
+
+  function adetDegistir(id, delta) {
+    const el = document.getElementById(`adet-${id}`);
+    if (!el) return;
+    const yeni = Math.max(0, (parseInt(el.value) || 0) + delta);
+    el.value = yeni;
+    guncelleToplamIndirim();
+  }
+
+  function guncelleToplamIndirim() {
+    const input = document.getElementById('indirim-input');
+    const tam = parseFloat(input.value);
+    if (!tam || tam <= 0) return;
+
+    const satirlar = [
+      { id: 'tam', oran: 1 },
+      { id: 'genc', oran: 0.85 },
+      { id: 'cocuk', oran: 0.50 },
+    ];
+
+    let toplam = 0;
+    satirlar.forEach(s => {
+      const fiyat = Math.ceil(tam * s.oran / 5) * 5;
+      const adetEl = document.getElementById(`adet-${s.id}`);
+      const araEl = document.getElementById(`ara-${s.id}`);
+      const adet = adetEl ? parseInt(adetEl.value) || 0 : 0;
+      if (araEl) araEl.textContent = adet > 0 ? `= ${fiyat * adet} TL` : '';
+      toplam += fiyat * adet;
+    });
+
+    const toplamEl = document.getElementById('indirim-toplam');
+    if (toplamEl) {
+      toplamEl.style.display = toplam > 0 ? 'flex' : 'none';
+      const deger = toplamEl.querySelector('.toplam-deger');
+      if (deger) deger.textContent = toplam + ' TL';
+    }
+  }
+
+  function copyBildirim(el) {
+    const text = el.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      el.classList.add('copied');
+      const orig = el.innerText;
+      el.innerText = '✓ Kopyalandı!';
+      setTimeout(() => {
+        el.classList.remove('copied');
+        el.innerText = orig;
+      }, 1500);
+    });
+  }
+
   function showPanel(id) {
     panels.forEach(p => p.classList.remove('active'));
     const target = document.getElementById(`tab-${id}`);
@@ -1558,6 +2098,11 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     window.scrollTo(0, 0);
   }
   window.goHome = goHome;
+  window.copyNumara = copyNumara;
+  window.copyBildirim = copyBildirim;
+  window.hesaplaIndirim = hesaplaIndirim;
+  window.guncelleToplamIndirim = guncelleToplamIndirim;
+  window.adetDegistir = adetDegistir;
 
   document.querySelectorAll('.home-card').forEach(card => {
     card.addEventListener('click', () => {
@@ -2190,6 +2735,53 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     if (!data.abonman) return;
     const sheets = data.abonman.sheets.map((sheet) => normalizeAbonmanSheet(sheet));
 
+    const gunSheet = sheets.find(s => s.name === 'YHT GÜN BAZLI ABONMAN');
+    const binisSheet = sheets.find(s => s.name === 'YHT BİNİŞ BAZLI ABONMAN');
+    if (gunSheet && binisSheet) {
+      const ekstraBiletFiyatlari = {
+        'ANKARA - PENDİK': ['930 TL', '795 TL', '1395 TL'],
+        'ANKARA - S.ÇEŞME': ['930 TL', '795 TL', '1395 TL'],
+        'ARİFİYE - GEBZE': ['350 TL', '300 TL', '525 TL'],
+        'ARİFİYE - HALKALI': ['425 TL', '365 TL', '640 TL'],
+        'ARİFİYE - PENDİK': ['350 TL', '300 TL', '525 TL'],
+        'ARİFİYE - S.ÇEŞME': ['350 TL', '300 TL', '525 TL'],
+        'ARİFİYE - İZMİT': ['225 TL', '195 TL', '340 TL'],
+        'ARİFİYE-KONYA': ['1285 TL', '1095 TL', '1930 TL'],
+        'BOZÜYÜK - KONYA': ['855 TL', '730 TL', '1285 TL'],
+        'BOZÜYÜK - PENDİK': ['600 TL', '510 TL', '900 TL'],
+        'BOZÜYÜK - S.ÇEŞME': ['600 TL', '510 TL', '900 TL'],
+        'BİLECİK - KONYA': ['1020 TL', '870 TL', '1530 TL'],
+        'BİLECİK - PENDİK': ['600 TL', '510 TL', '900 TL'],
+        'BİLECİK - S.ÇEŞME': ['600 TL', '510 TL', '900 TL'],
+        'ERYAMAN - PENDİK': ['930 TL', '795 TL', '1395 TL'],
+        'ERYAMAN -S.ÇEŞME': ['930 TL', '795 TL', '1395 TL'],
+        'ESKİŞEHİR - PENDİK': ['600 TL', '510 TL', '900 TL'],
+        'ESKİŞEHİR - S.ÇEŞME': ['600 TL', '510 TL', '900 TL'],
+        'KONYA -PENDİK': ['1355 TL', '1155 TL', '2035 TL'],
+        'KONYA -S.ÇEŞME': ['1355 TL', '1155 TL', '2035 TL'],
+        'POLATLI - PENDİK': ['850 TL', '725 TL', '1275 TL'],
+        'POLATLI - S.ÇEŞME': ['850 TL', '725 TL', '1275 TL'],
+        'İZMİT - GEBZE': ['225 TL', '195 TL', '340 TL'],
+        'İZMİT - HALKALI': ['300 TL', '255 TL', '450 TL'],
+        'İZMİT - KONYA': ['1285 TL', '1095 TL', '1930 TL'],
+        'İZMİT - PENDİK': ['225 TL', '195 TL', '340 TL'],
+        'İZMİT - S.ÇEŞME': ['225 TL', '195 TL', '340 TL'],
+        'İZMİT - ÇUMRA': ['1380 TL', '1175 TL', '2070 TL'],
+      };
+      const biletMap = { ...ekstraBiletFiyatlari };
+      gunSheet.rows.forEach(row => {
+        if (!row.values[0]) return;
+        biletMap[row.values[0]] = [row.values[1] || '-', row.values[2] || '-', row.values[3] || '-'];
+      });
+      const biletHeaders = ['BİLET / EKONOMİ TAM', 'BİLET / %15 İNDİRİMLİ', 'BİLET / BUSİNESS TAM'];
+      binisSheet.headers = [binisSheet.headers[0], ...biletHeaders, ...binisSheet.headers.slice(1)];
+      binisSheet.columnLabels = [binisSheet.columnLabels[0], ...biletHeaders, ...binisSheet.columnLabels.slice(1)];
+      binisSheet.rows = binisSheet.rows.map(row => ({
+        ...row,
+        values: [row.values[0], ...(biletMap[row.values[0]] || ['-', '-', '-']), ...row.values.slice(1)],
+      }));
+    }
+
     abonmanSheetSelect.innerHTML = sheets
       .map((s, idx) => `<option value="${idx}">${s.name}</option>`)
       .join('');
@@ -2448,21 +3040,21 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
 
   function getAgeFare(fareAge, under72Months) {
     if (under72Months) {
-      return '72 aydan küçük: bilet zorunlu değil';
+      return { text: '72 aydan küçük: kucakta götürmek şartıyla bilet zorunlu değil', cls: '' };
     }
     if (fareAge >= 7 && fareAge <= 12) {
-      return '%50 çocuk tarifesi uygun';
+      return { text: '%50 Çocuk Tarifesi Uygun', cls: 'age-status age-status-indirim' };
     }
     if (fareAge >= 13 && fareAge <= 26) {
-      return '%15 genç tarifesi uygun';
+      return { text: '%15 Genç Tarifesi Uygun', cls: 'age-status age-status-indirim' };
     }
     if (fareAge >= 60 && fareAge <= 64) {
-      return '%15 indirim uygun';
+      return { text: '%15 İndirim Uygun', cls: 'age-status age-status-indirim' };
     }
     if (fareAge >= 65) {
-      return '%50 indirim uygun';
+      return { text: '%50 İndirim Uygun', cls: 'age-status age-status-indirim' };
     }
-    return 'Bu yaş aralığı için özel indirim görünmüyor';
+    return { text: 'Bu yaş aralığı için özel indirim görünmüyor', cls: '' };
   }
 
   function renderYasMessage(label, value, className = '') {
@@ -2500,15 +3092,15 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     const explanation = under72Months
       ? 'Seyahat tarihinde 72 aydan küçük olduğu için bilet kesilmez.'
       : 'Seyahat tarihinde 72 ayını doldurduğu için bilet gerekir.';
-    const fareText = getAgeFare(fareAge, under72Months);
+    const fare = getAgeFare(fareAge, under72Months);
 
     yasResult.innerHTML = [
       renderYasMessage(
         'Durum',
-        under72Months ? 'Bilet zorunlu değil' : 'Bilet gerekli',
+        under72Months ? 'Kucakta götürmek şartıyla bilet zorunlu değil' : 'Bilet gerekli',
         under72Months ? 'age-status age-status-ok' : 'age-status age-status-warn'
       ),
-      renderYasMessage('Tarife / İndirim', fareText),
+      renderYasMessage('Tarife / İndirim', fare.text, fare.cls),
       renderYasMessage('Tarife Yaşı', `${fareAge} yaşından gün alıyor`),
       renderYasMessage('Yaş', `${age.years} yıl ${age.months} ay ${age.days} gün`),
       renderYasMessage('Ay Olarak Yaş', `${totalMonths} ay ${age.days} gün`),
