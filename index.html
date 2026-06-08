@@ -2079,7 +2079,7 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     });
   }
 
-  function showPanel(id) {
+  function showPanel(id, pushHistory = true) {
     panels.forEach(p => p.classList.remove('active'));
     const target = document.getElementById(`tab-${id}`);
     if (!target) return;
@@ -2088,16 +2088,32 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     panelArea.style.display  = 'block';
     if (id === 'm11') showM11Notice();
     if (id === 'marmaray') renderMarmaray();
+    if (pushHistory) window.location.hash = id;
     window.scrollTo(0, 0);
   }
 
-  function goHome() {
+  function goHome(pushHistory = true) {
     panels.forEach(p => p.classList.remove('active'));
     panelArea.style.display  = 'none';
     homeScreen.style.display = 'block';
+    if (pushHistory) history.pushState('', document.title, window.location.pathname);
     window.scrollTo(0, 0);
   }
   window.goHome = goHome;
+
+  window.addEventListener('hashchange', () => {
+    const id = window.location.hash.slice(1);
+    if (id) {
+      showPanel(id, false);
+    } else {
+      goHome(false);
+    }
+  });
+
+  const initHash = window.location.hash.slice(1);
+  if (initHash) {
+    showPanel(initHash, false);
+  }
   window.copyNumara = copyNumara;
   window.copyBildirim = copyBildirim;
   window.hesaplaIndirim = hesaplaIndirim;
