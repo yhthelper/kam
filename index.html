@@ -1050,6 +1050,14 @@ select option {
   font-size: 16px;
   line-height: 1.65;
 }
+.notice-summary {
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 107, 138, 0.28);
+  border-radius: 10px;
+  background: rgba(255, 107, 138, 0.1);
+  color: var(--ink);
+  font-weight: 700;
+}
 .notice-list {
   display: grid;
   gap: 10px;
@@ -1075,12 +1083,12 @@ select option {
 }
 .notice-time {
   flex: 0 0 auto;
-  min-width: 70px;
+  min-width: 116px;
   padding: 6px 10px;
   border-radius: 8px;
   background: rgba(98, 232, 207, 0.16);
   color: var(--accent);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 900;
   text-align: center;
 }
@@ -1173,7 +1181,7 @@ select option {
           <button class="home-card" data-tab="m11">
             <span class="home-card-icon">✈️</span>
             <span class="home-card-title">M11 METRO</span>
-            <span class="home-card-sub">Gayrettepe ve Havalimanı yönleri</span>
+            <span class="home-card-sub">Gayrettepe ve Halkalı yönleri</span>
           </button>
           <button class="home-card" data-tab="marmaray">
             <span class="home-card-icon">🌊</span>
@@ -1442,7 +1450,7 @@ select option {
           <section class="card numara-card" onclick="copyNumara(this)" role="button" tabindex="0">
             <div class="numara-label">Çözüm Merkezi</div>
             <div class="numara-desc">Şikayet ve sorunlar için yönlendirme hattı</div>
-            <div class="numara-value">0507 321 82 43</div>
+            <div class="numara-value">0507 321 82 33</div>
           </section>
 
           <section class="card numara-card" onclick="copyNumara(this)" role="button" tabindex="0">
@@ -1729,9 +1737,8 @@ select option {
         <div class="panel-header">
           <div>
             <h2>M11 METRO</h2>
-            <p>İstasyon seçin, Arnavutköy-Hastane ve Gayrettepe yönlerindeki sefer bilgilerini görün.</p>
+            <p>İstasyon seçin, Halkalı ve Gayrettepe yönlerindeki sefer bilgilerini görün.</p>
           </div>
-          <button class="info-button" id="m11-info-button" type="button" aria-label="M11 son tren bilgilendirmesini aç">i</button>
         </div>
         <div class="controls">
           <label>
@@ -1741,7 +1748,7 @@ select option {
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
           <section class="card">
-            <h3>Arnavutköy-Hastane Yönü</h3>
+            <h3>Halkalı Yönü</h3>
             <div class="kv" id="m11-havalimani-info"></div>
           </section>
           <section class="card">
@@ -1751,7 +1758,7 @@ select option {
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:16px;">
           <section class="card">
-            <h3>Arnavutköy-Hastane Yönü Tüm Saatler</h3>
+            <h3>Halkalı Yönü Tüm Saatler</h3>
             <div id="m11-havalimani-times"></div>
           </section>
           <section class="card">
@@ -1925,25 +1932,6 @@ select option {
             </div><!-- /panel-area -->
     </main>
 
-    <div class="notice-modal" id="m11-notice" aria-hidden="true">
-      <div class="notice-modal-card" role="dialog" aria-modal="true" aria-labelledby="m11-notice-title">
-        <button class="notice-close" id="m11-notice-close" type="button" aria-label="Bilgilendirmeyi kapat">×</button>
-        <div class="notice-icon">!</div>
-        <h3 id="m11-notice-title">M11 Son Tren Bilgilendirmesi</h3>
-        <p>Son tren saatleri aşağıdaki şekilde işlemektedir.</p>
-        <ul class="notice-list">
-          <li>
-            <span class="notice-route">Arnavutköy → Gayrettepe</span>
-            <span class="notice-time">19:15</span>
-          </li>
-          <li>
-            <span class="notice-route">Gayrettepe → Arnavutköy</span>
-            <span class="notice-time">20:17</span>
-          </li>
-        </ul>
-        <button class="notice-action" id="m11-notice-ok" type="button">Tamam</button>
-      </div>
-    </div>
 
     <footer class="footer"></footer>
 
@@ -1957,22 +1945,6 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
   const panels = document.querySelectorAll('.tab-panel');
   const homeScreen = document.getElementById('home-screen');
   const panelArea  = document.getElementById('panel-area');
-  const m11Notice = document.getElementById('m11-notice');
-  const m11NoticeClose = document.getElementById('m11-notice-close');
-  const m11NoticeOk = document.getElementById('m11-notice-ok');
-  const m11InfoButton = document.getElementById('m11-info-button');
-
-  function showM11Notice() {
-    if (!m11Notice) return;
-    m11Notice.classList.add('active');
-    m11Notice.setAttribute('aria-hidden', 'false');
-  }
-
-  function hideM11Notice() {
-    if (!m11Notice) return;
-    m11Notice.classList.remove('active');
-    m11Notice.setAttribute('aria-hidden', 'true');
-  }
 
   function copyNumara(el) {
     const numara = el.querySelector('.numara-value').innerText;
@@ -2086,7 +2058,6 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     target.classList.add('active');
     homeScreen.style.display = 'none';
     panelArea.style.display  = 'block';
-    if (id === 'm11') showM11Notice();
     if (id === 'marmaray') renderMarmaray();
     if (pushHistory) window.location.hash = id;
     window.scrollTo(0, 0);
@@ -2130,23 +2101,6 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     });
   });
 
-  [m11NoticeClose, m11NoticeOk].forEach(button => {
-    if (button) button.addEventListener('click', hideM11Notice);
-  });
-
-  if (m11InfoButton) {
-    m11InfoButton.addEventListener('click', showM11Notice);
-  }
-
-  if (m11Notice) {
-    m11Notice.addEventListener('click', event => {
-      if (event.target === m11Notice) hideM11Notice();
-    });
-  }
-
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') hideM11Notice();
-  });
 
 
   // ── MARMARAY DATA & RENDER ──────────────────────────────────────
@@ -2993,7 +2947,6 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
   initAbonman();
   initYasHesaplama();
   initBaskentray();
-  initM11();
   initSirkeciKazlicesme();
   // skYonDegisti tab acilinca cagrilir
 
@@ -3407,11 +3360,64 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     `;
   }
 
+  const M11_DATA = {
+    interval: 15,
+    stationOrder: [
+      'Gayrettepe', 'Kâğıthane', 'Hasdal-Üniversite', 'Kemerburgaz', 'Göktürk',
+      'İhsaniye', 'İstanbul Havalimanı', 'Kargo Terminali', 'Taşoluk',
+      'Arnavutköy-Hastane', 'İbni Haldun Üniversitesi', 'Kayaşehir',
+      'Olimpiyatköy', 'Halkalı Stadı', 'Halkalı',
+    ],
+    sections: [
+      {
+        title: 'HALKALI YÖNÜ',
+        terminalName: 'Halkalı',
+        rows: [
+          ['Gayrettepe', '05:55', '23:55'],
+          ['Kâğıthane', '05:59', '23:59'],
+          ['Hasdal-Üniversite', '06:04', '00:04'],
+          ['Kemerburgaz', '06:09', '00:08'],
+          ['Göktürk', '05:57', '00:12'],
+          ['İhsaniye', '06:05', '00:19'],
+          ['İstanbul Havalimanı', '06:11', '00:25'],
+          ['Kargo Terminali', '06:14', '00:29'],
+          ['Taşoluk', '06:04', '00:34'],
+          ['Arnavutköy-Hastane', '06:08', '00:38'],
+          ['İbni Haldun Üniversitesi', '06:14', '00:44'],
+          ['Kayaşehir', '06:03', '00:47'],
+          ['Olimpiyatköy', '06:07', '00:52'],
+          ['Halkalı Stadı', '06:10', '00:55'],
+          ['Halkalı', '--', '--'],
+        ],
+      },
+      {
+        title: 'GAYRETTEPE YÖNÜ',
+        terminalName: 'Gayrettepe',
+        rows: [
+          ['Halkalı', '06:00', '23:44'],
+          ['Halkalı Stadı', '06:04', '23:48'],
+          ['Olimpiyatköy', '06:07', '23:51'],
+          ['Kayaşehir', '05:56', '23:56'],
+          ['İbni Haldun Üniversitesi', '06:00', '23:59'],
+          ['Arnavutköy-Hastane', '06:06', '00:05'],
+          ['Taşoluk', '06:10', '00:09'],
+          ['Kargo Terminali', '06:00', '00:15'],
+          ['İstanbul Havalimanı', '06:03', '00:17'],
+          ['İhsaniye', '06:09', '00:23'],
+          ['Göktürk', '06:02', '00:31'],
+          ['Kemerburgaz', '06:05', '00:34'],
+          ['Hasdal-Üniversite', '06:10', '00:39'],
+          ['Kâğıthane', '06:00', '00:44'],
+          ['Gayrettepe', '--', '--'],
+        ],
+      },
+    ],
+  };
+
   function initM11() {
-    const gp = (window.EXEL_DATA || {}).gayrettepe;
-    if (!m11Station || !gp) return;
-    const sections = gp.sections || [];
-    const stations = getM11Stations(sections);
+    if (!m11Station) return;
+    const sections = M11_DATA.sections;
+    const stations = M11_DATA.stationOrder;
     m11Station.innerHTML = '<option value="">— İstasyon Seçin —</option>' + stations
       .map((station) => `<option value="${station}">${station}</option>`)
       .join('');
@@ -3427,18 +3433,20 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
         return;
       }
       renderM11Direction({
-        rows: (sections[0] || {}).rows || [],
+        rows: sections[0].rows,
         station,
-        terminalName: 'Arnavutköy-Hastane',
+        terminalName: sections[0].terminalName,
         infoEl: m11HavalimaniInfo,
         timesEl: m11HavalimaniTimes,
+        interval: M11_DATA.interval,
       });
       renderM11Direction({
-        rows: (sections[1] || {}).rows || [],
+        rows: sections[1].rows,
         station,
-        terminalName: 'Gayrettepe',
+        terminalName: sections[1].terminalName,
         infoEl: m11GayrettepeInfo,
         timesEl: m11GayrettepeTimes,
+        interval: M11_DATA.interval,
       });
     };
 
@@ -3446,6 +3454,8 @@ window.EXEL_DATA = {"abonman":{"file":"Abonman_Ucretleri_flat.xlsx","mode":"flat
     render();
     setInterval(render, 60000);
   }
+
+  initM11();
 
   const M11_KARGO_DATA = {
     interval: 22,
